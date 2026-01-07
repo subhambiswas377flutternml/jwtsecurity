@@ -21,11 +21,12 @@ public class AuthUtil {
 
     public String generateJwtToken(UserEntity user){
         final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
-        return Jwts.builder()
+        String jwt = Jwts.builder()
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(generateSecretKey(), SignatureAlgorithm.HS512)
+                .signWith(generateSecretKey())
                 .compact();
+        return jwt;
     }
 }
