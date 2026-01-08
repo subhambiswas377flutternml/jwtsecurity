@@ -34,7 +34,7 @@ public class AuthService {
         UserEntity user = (UserEntity) authentication.getPrincipal();
 
         if(user!=null){
-            String jwt = authUtil.generateJwtToken(user);
+            String jwt = authUtil.generateJwtToken(user);  // generating the jwt using jjwt
 
             return new AuthResponseDto(jwt, user.getUsername());
         }
@@ -51,7 +51,7 @@ public class AuthService {
         else{
             UserEntity newUser = new UserEntity();
             newUser.setUsername(authRequest.getUsername());
-            newUser.setPassword(passwordEncoder.encode(authRequest.getPassword()));
+            newUser.setPassword(passwordEncoder.encode(authRequest.getPassword())); // password is stored in encoded way
 
             UserEntity savedUser = userRepository.save(newUser);
 

@@ -13,12 +13,12 @@ import java.util.Date;
 
 @Component
 public class AuthUtil {
-    @Value("${jwt.secretKey}")
+    @Value("${jwt.secretKey}") // this annotation is used to Autowired data directly from application.properties file
     private String jwtSignatureKey;
 
     private SecretKey generateSecretKey(){
         return Keys.hmacShaKeyFor(jwtSignatureKey.getBytes());
-    }
+    } // hMacShaKey is an algorithm
 
     public String generateJwtToken(UserEntity user){
         final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
