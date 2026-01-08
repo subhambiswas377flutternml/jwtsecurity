@@ -1,6 +1,7 @@
 package com.security.auth.authsecurity.util;
 
 import com.security.auth.authsecurity.entity.UserEntity;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -29,4 +30,15 @@ public class AuthUtil {
                 .compact();
         return jwt;
     }
+
+    public String extractUsernameFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(generateSecretKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
+    }
+
 }
